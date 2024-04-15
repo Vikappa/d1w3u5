@@ -18,8 +18,9 @@ public class SecurityConfig {
         httpSecurity.sessionManagement(http -> http.sessionCreationPolicy(SessionCreationPolicy.STATELESS)); // Non voglio le sessioni (perché utilizzeremo la token based authentication con JWT)
 
         // Aggiungere/Rimuovere determinate regole di protezione per gli endpoint
-        // Possiamo decidere se debba essere necessaria o meno un'autenticazione per accedere agli endpoint
-        httpSecurity.authorizeHttpRequests(http -> http.requestMatchers("/**").permitAll());
+        httpSecurity.authorizeHttpRequests(http -> http.requestMatchers("/login", "/registrazione").permitAll().anyRequest().authenticated()); //Autorizzati login e registraiozione senza filtri, gli altri richiedono autenticazione
 
-        return httpSecurity.build();    }
+
+        return httpSecurity.build();
+    }
 }
